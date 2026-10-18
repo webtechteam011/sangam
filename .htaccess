@@ -34,6 +34,10 @@ RewriteRule ^admin/_ - [F,L]
 RewriteRule (^|/)\.(?!well-known/) - [F,L]
 RewriteRule \.(md|sql|log|ini|bak|old|orig|swp|tgz|zip|py|sh|yml|yaml|lock|json)$ - [F,L]
 
+# /index.php -> /
+RewriteCond %{ENV:REDIRECT_STATUS} ^$
+RewriteRule ^index\.php$ / [R=301,L]
+
 # ---- Hide ".php": 301 /x.php -> /x (only for direct, non-internal requests) -
 RewriteCond %{ENV:REDIRECT_STATUS} ^$
 RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\s/(.+?)\.php(?:\?\S*)?\sHTTP/ [NC]
