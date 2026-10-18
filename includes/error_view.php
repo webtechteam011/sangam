@@ -8,6 +8,7 @@ declare(strict_types=1);
 const ERROR_COPY = [
     403 => ['Access denied', "You don't have permission to open this page.", 'locked'],
     404 => ['Page not found', "The page you're looking for has moved, been renamed or never existed.", 'compass'],
+    429 => ['Slow down a little', 'We noticed a lot of requests from your connection. Please wait a minute and try again.', 'wrench'],
     500 => ['Something went wrong', "We hit an unexpected problem on our side. It's not you — please try again in a moment.", 'wrench'],
     503 => ['Back in a moment', 'The website is briefly unavailable. Please try again shortly.', 'wrench'],
 ];
@@ -74,7 +75,7 @@ footer a{color:var(--gold);text-decoration:none}
     <p class="lead"><?= $h($text) ?></p>
     <div class="btns">
       <a class="btn primary" href="/">Back to Home</a>
-      <?php if ($code >= 500): ?><button class="btn ghost" type="button" onclick="location.reload()">Try again</button>
+      <?php if ($code >= 429): ?><button class="btn ghost" type="button" onclick="location.reload()">Try again</button>
       <?php else: ?><a class="btn ghost" href="/contact">Contact us</a><?php endif; ?>
       <a class="btn ghost" href="<?= $h($wa) ?>" target="_blank" rel="noopener">WhatsApp</a>
     </div>

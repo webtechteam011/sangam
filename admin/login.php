@@ -13,9 +13,17 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
     $pdo = db();
     $ip  = client_ip();
 
+    // Bot traps: hidden field must stay empty and the form can't be posted instantly.
+    if (trim((string)($_POST['website'] ?? '')) !== '' || time() - (int)($_SESSION['login_ts'] ?? 0) < 2) {
+        usleep(600000);
+        $error = 'Incorrect username or password.';
+    }
+
     $cnt = $pdo->prepare('SELECT COUNT(*) FROM login_attempts WHERE ip = ? AND attempted_at > (NOW() - INTERVAL 15 MINUTE)');
     $cnt->execute([$ip]);
-    if ((int)$cnt->fetchColumn() >= 5) {
+    if ($error !== '') {
+        // trap tripped: don't even check credentials
+    } elseif ((int)$cnt->fetchColumn() >= 5) {
         $error = 'Too many attempts. Please wait 15 minutes and try again.';
     } else {
         $stmt = $pdo->prepare('SELECT * FROM admins WHERE username = ? LIMIT 1');
@@ -32,6 +40,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
             header('Location: /admin/');
             exit;
         }
+        usleep(400000); // slow down guessing
         $pdo->prepare('INSERT INTO login_attempts (ip) VALUES (?)')->execute([$ip]);
         $pdo->exec('DELETE FROM login_attempts WHERE attempted_at < (NOW() - INTERVAL 1 DAY)');
         $error = 'Incorrect username or password.';
@@ -40,6 +49,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
 if (isset($_GET['expired'])) {
     $error = $error ?: 'Your session expired. Please sign in again.';
 }
+$_SESSION['login_ts'] = time();
 admin_head('Sign in');
 ?>
 <section class="login-card">
@@ -51,6 +61,7 @@ admin_head('Sign in');
     <?= csrf_field() ?>
     <label>Username<input type="text" name="username" required autofocus autocomplete="username"></label>
     <label>Password<input type="password" name="password" required autocomplete="current-password"></label>
+    <div style="position:absolute;left:-9999px" aria-hidden="true"><label>Leave empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
     <button class="btn primary block" type="submit">Sign in</button>
   </form>
 </section>

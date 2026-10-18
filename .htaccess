@@ -4,44 +4,65 @@ ServerSignature Off
 
 ErrorDocument 403 /error.php?c=403
 ErrorDocument 404 /error.php?c=404
+ErrorDocument 429 /error.php?c=429
 ErrorDocument 500 /error.php?c=500
 ErrorDocument 503 /error.php?c=503
 
 <IfModule mod_rewrite.c>
 RewriteEngine On
 
-# HTTPS
+# ---- HTTPS / canonical host ------------------------------------------------
 RewriteCond %{HTTPS} !=on
 RewriteCond %{HTTP:X-Forwarded-Proto} !https
 RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-# www -> apex (production domain)
 RewriteCond %{HTTP_HOST} ^www\.thesangamhouse\.com$ [NC]
 RewriteRule ^ https://thesangamhouse.com%{REQUEST_URI} [L,R=301]
 
-# Never serve internals directly
-RewriteRule ^(includes|pages|sql|tools)(/|$) - [F,L]
+# ---- Bad bots: vulnerability scanners & aggressive scrapers ----------------
+RewriteCond %{HTTP_USER_AGENT} (sqlmap|nikto|acunetix|nessus|openvas|netsparker|nmap|masscan|zgrab|wpscan|dirbuster|gobuster|havij|w3af|fimap|jorgee|libwww-perl|python-urllib|scrapy|go-http-client|okhttp) [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} (MJ12bot|SemrushBot|AhrefsBot|DotBot|BLEXBot|Bytespider|PetalBot|DataForSeoBot|MegaIndex|serpstatbot|ZoominfoBot|GPTBot|CCBot|ClaudeBot|Amazonbot|ImagesiftBot) [NC]
+RewriteRule ^ - [F,L]
+
+# ---- Common exploit probes (WordPress, phpMyAdmin, env files, shells) ------
+RewriteRule ^(wp-admin|wp-login|wp-content|wp-includes|wp-json|xmlrpc|phpmyadmin|pma|myadmin|cgi-bin|vendor/phpunit|solr|actuator|boaform|HNAP1|owa|ecp)(/|\.|$) - [R=404,L]
+RewriteRule (^|/)(eval-stdin|shell|c99|r57|wso|adminer|backup|dump|db|database)\.(php|sql|zip|tar|gz)$ - [R=404,L]
+
+# ---- Never serve internals, dotfiles, backups --------------------------------
+RewriteRule ^(includes|pages|sql|tools|sessions|ratelimit)(/|$) - [F,L]
+RewriteRule ^admin/_ - [F,L]
+RewriteRule (^|/)\.(?!well-known/) - [F,L]
+RewriteRule \.(md|sql|log|ini|bak|old|orig|swp|tgz|zip|py|sh|yml|yaml|lock|json)$ - [F,L]
+
+# ---- Hide ".php": 301 /x.php -> /x (only for direct, non-internal requests) -
+RewriteCond %{ENV:REDIRECT_STATUS} ^$
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\s/(.+?)\.php(?:\?\S*)?\sHTTP/ [NC]
+RewriteRule ^ /%1 [R=301,L,NE]
 
 # Old static URLs -> clean URLs (301)
 RewriteRule ^index\.html$ / [L,R=301]
 RewriteRule ^([a-z0-9-]+)\.html$ /$1 [L,R=301]
 
-# Everything that is not a real file/dir goes to the front controller
+# /admin/seo -> admin/seo.php (internal)
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.+)$ $1.php [L]
+
+# Everything else that is not a real file/dir -> front controller
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^ index.php [L]
 </IfModule>
-
-<FilesMatch "\.(sql|md|example\.php|log|ini)$">
-  Require all denied
-</FilesMatch>
 
 <IfModule mod_headers.c>
   Header always set Strict-Transport-Security "max-age=31536000" "expr=%{HTTPS} == 'on'"
   Header always set X-Content-Type-Options "nosniff"
   Header always set X-Frame-Options "SAMEORIGIN"
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
-  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+  Header always set Content-Security-Policy "frame-ancestors 'self'; base-uri 'self'; form-action 'self'; object-src 'none'"
+  Header always set Cross-Origin-Opener-Policy "same-origin-allow-popups"
+  Header always unset X-Powered-By
+  Header unset X-Powered-By
 </IfModule>
 
 <IfModule mod_deflate.c>

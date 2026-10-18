@@ -13,6 +13,14 @@ foreach (array_filter(array_map('trim', explode(';', file_get_contents(__DIR__ .
 
 $D = '2026-10-18';
 $entries = [
+  // ---------------- v1.4.0 ----------------
+  ['1.4.0', 'new', 'Clean URLs everywhere: no more ".php" in the address bar', 'Admin pages are now /admin/login, /admin/seo, /admin/settings, /admin/version, /admin/enquiry and /admin/export. Any old .php address 301-redirects to the clean URL.'],
+  ['1.4.0', 'security', 'Bot protection: scanners and aggressive scrapers are blocked', 'Known vulnerability scanners (sqlmap, nikto, nmap, wpscan …) and heavy scrapers/AI crawlers get 403. Real search engines (Google, Bing) and social previews are unaffected.'],
+  ['1.4.0', 'security', 'Exploit-probe blocking', 'Requests for /wp-login, /xmlrpc, /phpmyadmin, /.env, /.git, shells and backup files return 404/403 immediately and never reach the app.'],
+  ['1.4.0', 'security', 'Per-visitor rate limiting', 'Page requests are throttled (90/min per IP, search-engine bots exempt) with a friendly "Slow down" page (HTTP 429). Enquiry form limited to 3/min and 5/hour per IP.'],
+  ['1.4.0', 'security', 'Stronger enquiry form anti-spam', 'Requests must come from our own pages (Origin/Referer + marker header), include human-like timing, pass the honeypot and contain at most one link. Direct bot POSTs are rejected.'],
+  ['1.4.0', 'security', 'Admin login hardened', 'Hidden honeypot, minimum fill time, slower responses on wrong passwords, existing 5-attempt/15-minute IP lockout kept. Internal admin files (_bootstrap) can no longer be opened directly.'],
+  ['1.4.0', 'security', 'More security headers', 'Content-Security-Policy (frame-ancestors, base-uri, form-action, object-src), Cross-Origin-Opener-Policy, stricter Permissions-Policy; X-Powered-By removed; dotfiles, backups, logs and source files blocked.'],
   // ---------------- v1.3.1 ----------------
   ['1.3.1', 'improved', 'Admin login is remembered for 30 days', 'Sign-in now persists across browser restarts. The 30-day window slides forward on every visit, so active admins stay signed in. Previously it ended when the browser closed or after 2 idle hours.'],
   ['1.3.1', 'fixed', 'Admin could be logged out unexpectedly on shared hosting', 'Sessions are now stored in a private folder outside the web root, so the server\'s default clean-up (about 24 minutes) no longer deletes them.'],

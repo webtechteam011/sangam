@@ -10,16 +10,25 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
     exit;
 }
 
-// Same-origin only.
-$origin = $_SERVER['HTTP_ORIGIN'] ?? '';
-if ($origin !== '' && parse_url($origin, PHP_URL_HOST) !== ($_SERVER['HTTP_HOST'] ?? '')) {
-    json_response(['ok' => false, 'message' => 'Invalid request origin.'], 403);
+require_once __DIR__ . '/ratelimit.php';
+
+// Same-origin browser requests only: Origin/Referer must match this host and the
+// form script must send its marker header (plain bot POSTs fail both).
+$host   = $_SERVER['HTTP_HOST'] ?? '';
+$source = $_SERVER['HTTP_ORIGIN'] ?? ($_SERVER['HTTP_REFERER'] ?? '');
+if ($source === '' || parse_url($source, PHP_URL_HOST) !== $host || ($_SERVER['HTTP_X_REQUESTED_WITH'] ?? '') !== 'sangam-form') {
+    json_response(['ok' => false, 'message' => 'Invalid request.'], 403);
+}
+if (!rate_limit_allow('enquiry-min:' . client_ip(), 3, 60)) {
+    json_response(['ok' => false, 'message' => 'Too many requests. Please wait a minute and try again.'], 429);
 }
 
 $ok = ['ok' => true, 'message' => 'Thank you! Your enquiry has been received. Our team will contact you on phone/WhatsApp shortly.'];
 
-// Spam traps: honeypot field and implausibly fast submissions.
-if (trim((string)($_POST['website'] ?? '')) !== '' || (int)($_POST['elapsed'] ?? 99999) < 1500) {
+// Spam traps: honeypot, implausibly fast / missing timing, and link-stuffed messages.
+$elapsed = (int)($_POST['elapsed'] ?? 0);
+if (trim((string)($_POST['website'] ?? '')) !== '' || $elapsed < 2500 || $elapsed > 21600000
+    || preg_match_all('#https?://|www\.#i', (string)($_POST['message'] ?? '')) > 1) {
     json_response($ok);
 }
 

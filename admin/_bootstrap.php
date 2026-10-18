@@ -19,14 +19,14 @@ function require_admin(): array
 {
     $u = admin_user();
     if (!$u) {
-        header('Location: /admin/login.php');
+        header('Location: /admin/login');
         exit;
     }
     // Idle timeout: 30 days (sliding).
     if (time() - ($_SESSION['last_seen'] ?? 0) > SESSION_LIFETIME) {
         $_SESSION = [];
         session_destroy();
-        header('Location: /admin/login.php?expired=1');
+        header('Location: /admin/login?expired=1');
         exit;
     }
     $_SESSION['last_seen'] = time();
@@ -55,14 +55,14 @@ function admin_head(string $title): void
   <a class="brand" href="/admin/"><span class="dot"></span> Sangam <em>Admin</em></a>
   <nav>
     <a href="/admin/" class="<?= basename($_SERVER["SCRIPT_NAME"]) === "index.php" && !str_contains($_SERVER["SCRIPT_NAME"], "/version/") ? "on" : "" ?>">Enquiries</a>
-    <a href="/admin/seo.php" class="<?= basename($_SERVER["SCRIPT_NAME"]) === "seo.php" ? "on" : "" ?>">SEO</a>
-    <a href="/admin/version/" class="<?= str_contains($_SERVER["SCRIPT_NAME"], "version") ? "on" : "" ?>">Version <em class="vtag">v<?= e(APP_VERSION) ?></em></a>
-    <a href="/admin/settings.php" class="<?= basename($_SERVER["SCRIPT_NAME"]) === "settings.php" ? "on" : "" ?>">Scripts</a>
+    <a href="/admin/seo" class="<?= basename($_SERVER["SCRIPT_NAME"]) === "seo.php" ? "on" : "" ?>">SEO</a>
+    <a href="/admin/version" class="<?= str_contains($_SERVER["SCRIPT_NAME"], "version") ? "on" : "" ?>">Version <em class="vtag">v<?= e(APP_VERSION) ?></em></a>
+    <a href="/admin/settings" class="<?= basename($_SERVER["SCRIPT_NAME"]) === "settings.php" ? "on" : "" ?>">Scripts</a>
     <a href="/" target="_blank" rel="noopener">View site ↗</a>
   </nav>
   <div class="who">
     <span><?= e($u['name']) ?></span>
-    <a class="btn ghost sm" href="/admin/logout.php">Sign out</a>
+    <a class="btn ghost sm" href="/admin/logout">Sign out</a>
   </div>
 </header>
 <?php endif; ?>

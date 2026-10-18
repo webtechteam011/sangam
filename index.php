@@ -8,6 +8,9 @@ require __DIR__ . '/includes/errors.php';
 require __DIR__ . '/includes/helpers.php';
 require __DIR__ . '/includes/seo.php';
 require __DIR__ . '/includes/seo_overrides.php';
+require __DIR__ . '/includes/ratelimit.php';
+
+guard_page_request();
 
 $path = rawurldecode((string)parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH));
 $route = strtolower(trim($path, '/'));

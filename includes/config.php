@@ -7,7 +7,7 @@ declare(strict_types=1);
  */
 
 const SITE_NAME    = 'The Sangam House';
-const APP_VERSION  = '1.3.1';
+const APP_VERSION  = '1.4.0';
 const SITE_PHONE_1 = '+91 9889882696';
 const SITE_PHONE_2 = '+91 9999683311';
 const SITE_EMAIL   = 'info@thesangamhouse.com';

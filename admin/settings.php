@@ -25,7 +25,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
         foreach ($new as $k => $v) {
             $st->execute([$k, $v]);
         }
-        header('Location: /admin/settings.php?saved=1');
+        header('Location: /admin/settings?saved=1');
         exit;
     }
 }

@@ -27,7 +27,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
     $status = isset(ENQUIRY_STATUSES[$_POST['status'] ?? '']) ? $_POST['status'] : $r['status'];
     $notes  = mb_substr(trim((string)($_POST['notes'] ?? '')), 0, 5000);
     $pdo->prepare('UPDATE enquiries SET status = ?, notes = ? WHERE id = ?')->execute([$status, $notes ?: null, $id]);
-    header('Location: /admin/enquiry.php?id=' . $id . '&saved=1');
+    header('Location: /admin/enquiry?id=' . $id . '&saved=1');
     exit;
 }
 $saved = isset($_GET['saved']);

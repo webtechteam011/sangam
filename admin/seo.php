@@ -21,7 +21,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
     csrf_check();
     $r = (string)($_POST['route'] ?? '');
     if (!isset($registry[$r])) { http_response_code(400); exit('Unknown page.'); }
-    $back = '/admin/seo.php?route=' . ($r === '' ? 'home' : rawurlencode($r));
+    $back = '/admin/seo?route=' . ($r === '' ? 'home' : rawurlencode($r));
 
     if (($_POST['action'] ?? '') === 'reset') {
         $pdo->prepare('DELETE FROM seo_pages WHERE route = ?')->execute([$r]);
@@ -95,7 +95,7 @@ if ($route === null):
     ?>
       <tr>
         <td>
-          <a class="name" href="/admin/seo.php?route=<?= $r === '' ? 'home' : rawurlencode((string)$r) ?>"><?= e($d['breadcrumb']) ?></a>
+          <a class="name" href="/admin/seo?route=<?= $r === '' ? 'home' : rawurlencode((string)$r) ?>"><?= e($d['breadcrumb']) ?></a>
           <div class="sub"><a href="<?= e($url) ?>" target="_blank" rel="noopener"><?= e($url) ?></a></div>
         </td>
         <td class="msg" style="max-width:420px">
@@ -108,7 +108,7 @@ if ($route === null):
           <?php if (($p['in_sitemap'] ?? true) === false): ?><div class="sub">Not in sitemap</div><?php endif; ?>
           <?php if ($o): ?><div class="sub">Customised</div><?php endif; ?>
         </td>
-        <td class="actions"><a class="btn ghost sm" href="/admin/seo.php?route=<?= $r === '' ? 'home' : rawurlencode((string)$r) ?>">Edit SEO</a></td>
+        <td class="actions"><a class="btn ghost sm" href="/admin/seo?route=<?= $r === '' ? 'home' : rawurlencode((string)$r) ?>">Edit SEO</a></td>
       </tr>
     <?php endforeach; ?>
     </tbody>
@@ -127,7 +127,7 @@ else:
 ?>
 <div class="page-head">
   <div>
-    <a class="muted" href="/admin/seo.php">← All pages</a>
+    <a class="muted" href="/admin/seo">← All pages</a>
     <h1>SEO · <?= e($d['breadcrumb']) ?></h1>
     <p class="muted"><a href="<?= e($url) ?>" target="_blank" rel="noopener"><?= e(SITE_URL . $url) ?></a></p>
   </div>

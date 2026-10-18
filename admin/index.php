@@ -84,7 +84,7 @@ admin_head('Enquiries');
     <h1>Enquiries</h1>
     <p class="muted">Hello <?= e($user['name']) ?> — here's what's coming in from the website.</p>
   </div>
-  <a class="btn ghost" href="/admin/export.php<?= $qs() ?>">⬇ Export CSV</a>
+  <a class="btn ghost" href="/admin/export<?= $qs() ?>">⬇ Export CSV</a>
 </div>
 
 <section class="stats">
@@ -142,7 +142,7 @@ admin_head('Enquiries');
       ?>
         <tr class="<?= $r['status'] === 'new' ? 'is-new' : '' ?>">
           <td>
-            <a class="name" href="/admin/enquiry.php?id=<?= (int)$r['id'] ?>"><?= e($r['name']) ?></a>
+            <a class="name" href="/admin/enquiry?id=<?= (int)$r['id'] ?>"><?= e($r['name']) ?></a>
             <div class="sub"><a href="tel:<?= e($r['phone']) ?>"><?= e($r['phone']) ?></a><?= $r['email'] ? ' · ' . e($r['email']) : '' ?></div>
           </td>
           <td>
@@ -167,7 +167,7 @@ admin_head('Enquiries');
           <td class="actions">
             <a class="icon-btn" title="Call" href="tel:<?= e($r['phone']) ?>">📞</a>
             <a class="icon-btn" title="WhatsApp" target="_blank" rel="noopener" href="https://wa.me/<?= e($wa) ?>?text=<?= rawurlencode('Hello ' . $r['name'] . ', thank you for your enquiry at The Sangam House, Devprayag.') ?>">💬</a>
-            <a class="icon-btn" title="Open" href="/admin/enquiry.php?id=<?= (int)$r['id'] ?>">👁</a>
+            <a class="icon-btn" title="Open" href="/admin/enquiry?id=<?= (int)$r['id'] ?>">👁</a>
           </td>
         </tr>
       <?php endforeach; ?>

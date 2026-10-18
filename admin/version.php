@@ -24,13 +24,13 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
         if (preg_match('/^\d+\.\d+\.\d+$/', $version) && $title !== '') {
             $pdo->prepare('INSERT IGNORE INTO changelog (version, released_on, type, title, details, author) VALUES (?,?,?,?,?,?)')
                 ->execute([$version, $date, $type, mb_substr($title, 0, 190), mb_substr(trim((string)($_POST['details'] ?? '')), 0, 3000) ?: null, mb_substr(trim((string)($_POST['author'] ?? '')) ?: admin_user()['name'], 0, 80)]);
-            header('Location: /admin/version/?added=1');
+            header('Location: /admin/version?added=1');
             exit;
         }
         $flash = 'Enter a version like 1.2.0 and a title.';
     } elseif ($action === 'delete') {
         $pdo->prepare('DELETE FROM changelog WHERE id = ?')->execute([(int)($_POST['id'] ?? 0)]);
-        header('Location: /admin/version/');
+        header('Location: /admin/version');
         exit;
     }
 }
@@ -63,7 +63,7 @@ admin_head('Version & change log');
 
 <section class="stats cl-stats">
   <?php foreach (CL_TYPES as $k => [$label, $ic]): ?>
-    <a class="stat cl-<?= $k ?> <?= $filter === $k ? 'sel' : '' ?>" href="/admin/version/<?= $filter === $k ? '' : '?type=' . $k ?>">
+    <a class="stat cl-<?= $k ?> <?= $filter === $k ? 'sel' : '' ?>" href="/admin/version<?= $filter === $k ? '' : '?type=' . $k ?>">
       <span><?= $ic ?> <?= e($label) ?></span><strong><?= (int)($counts[$k] ?? 0) ?></strong>
     </a>
   <?php endforeach; ?>

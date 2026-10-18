@@ -21,7 +21,7 @@
       if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
       setStatus(form, '', true);
 
-      fetch('/enquiry', { method: 'POST', body: data, headers: { 'Accept': 'application/json' }, credentials: 'same-origin' })
+      fetch('/enquiry', { method: 'POST', body: data, headers: { 'Accept': 'application/json', 'X-Requested-With': 'sangam-form' }, credentials: 'same-origin' })
         .then(function (r) { return r.json().catch(function () { return { ok: false, message: 'Something went wrong.' }; }); })
         .then(function (res) {
           if (res.ok) {
