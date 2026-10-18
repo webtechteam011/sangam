@@ -1,0 +1,53 @@
+/* Enquiry form feedback + honeypot */
+.enq-hp{position:absolute!important;left:-9999px;width:1px;height:1px;overflow:hidden;opacity:0}
+.enq-status{min-height:0;margin:10px 0 0;font-size:14px;line-height:1.5;border-radius:8px}
+.enq-status.is-ok:not(:empty){background:rgba(46,160,67,.12);color:#2f7d3b;padding:10px 14px;border:1px solid rgba(46,160,67,.35)}
+.enq-status.is-err:not(:empty){background:rgba(220,53,69,.1);color:#b02a37;padding:10px 14px;border:1px solid rgba(220,53,69,.35)}
+.booking-modal .enq-status.is-ok:not(:empty){color:#7ee08b}
+.booking-modal .enq-status.is-err:not(:empty){color:#ff8f9a}
+button[disabled]{opacity:.7;cursor:progress}
+
+/* SEO landing pages */
+.seo-hero{background:linear-gradient(rgba(17,17,17,.72),rgba(17,17,17,.82)),var(--seo-hero) center/cover no-repeat;color:#f4f1ea;padding:calc(var(--header-h) + 70px) 20px 70px;text-align:center}
+.seo-hero .seo-kicker{display:inline-block;letter-spacing:.18em;text-transform:uppercase;font-size:12px;color:var(--gold);margin-bottom:14px;font-family:'Poppins',sans-serif}
+.seo-hero h1{font-size:clamp(28px,5vw,48px);line-height:1.2;max-width:900px;margin:0 auto 18px;font-weight:600}
+.seo-hero p{max-width:760px;margin:0 auto 26px;color:#dcd8cf;font-family:'Poppins',sans-serif;font-size:16px;line-height:1.75}
+.seo-cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.seo-btn{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:50px;font-family:'Poppins',sans-serif;font-weight:600;font-size:14px;text-decoration:none;border:2px solid var(--gold);cursor:pointer;transition:.25s}
+.seo-btn.primary{background:var(--gold);color:#111}
+.seo-btn.primary:hover{background:var(--gold-dark);border-color:var(--gold-dark)}
+.seo-btn.ghost{background:transparent;color:var(--gold)}
+.seo-btn.ghost:hover{background:var(--gold);color:#111}
+.seo-body{background:#faf8f3;color:#2b2b2b;padding:60px 20px}
+.seo-wrap{max-width:900px;margin:0 auto;font-family:'Poppins',sans-serif}
+.seo-crumbs{font-size:13px;margin-bottom:28px;color:#777}
+.seo-crumbs a{color:var(--gold-dark);text-decoration:none}
+.seo-section{margin-bottom:38px}
+.seo-section h2{font-size:clamp(22px,3vw,30px);margin-bottom:14px;color:#1c2025}
+.seo-section p{line-height:1.85;margin-bottom:14px;font-size:15.5px}
+.seo-section ul{list-style:none;padding:0}
+.seo-section li{position:relative;padding:10px 0 10px 30px;line-height:1.7;border-bottom:1px solid #eee5d3;font-size:15.5px}
+.seo-section li::before{content:"\f00c";font-family:"Font Awesome 6 Free";font-weight:900;color:var(--gold-dark);position:absolute;left:0;top:11px;font-size:13px}
+.seo-faq details{background:#fff;border:1px solid #eadfc6;border-radius:12px;padding:16px 20px;margin-bottom:12px}
+.seo-faq summary{cursor:pointer;font-weight:600;color:#1c2025;list-style:none}
+.seo-faq summary::-webkit-details-marker{display:none}
+.seo-faq summary::after{content:"+";float:right;color:var(--gold-dark);font-size:20px;line-height:1}
+.seo-faq details[open] summary::after{content:"–"}
+.seo-faq details p{margin:12px 0 0;line-height:1.75;font-size:15px;color:#444}
+.seo-related{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+.seo-related a{padding:9px 16px;border:1px solid var(--gold);border-radius:30px;color:#1c2025;font-size:13.5px;text-decoration:none;background:#fff}
+.seo-related a:hover{background:var(--gold)}
+.seo-enquire{background:#111;color:#f4f1ea;padding:60px 20px}
+.seo-enquire .seo-wrap{max-width:640px}
+.seo-enquire h2{text-align:center;color:var(--gold);margin-bottom:8px}
+.seo-enquire p.sub{text-align:center;color:#cfcac0;margin-bottom:24px}
+.seo-form{display:grid;gap:14px}
+.seo-form input,.seo-form select,.seo-form textarea{width:100%;padding:13px 15px;border-radius:10px;border:1px solid #3a3a3a;background:#1c2025;color:#fff;font-family:inherit;font-size:15px}
+.seo-form input:focus,.seo-form select:focus,.seo-form textarea:focus{outline:2px solid var(--gold);border-color:var(--gold)}
+.seo-form .row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:600px){.seo-form .row{grid-template-columns:1fr}}
+.seo-narrow{padding:calc(var(--header-h) + 50px) 20px 60px;background:#faf8f3;min-height:60vh;font-family:'Poppins',sans-serif}
+.seo-narrow .seo-wrap h1{font-size:34px;margin-bottom:20px;color:#1c2025}
+.seo-narrow .seo-wrap h2{font-size:21px;margin:26px 0 8px;color:#1c2025}
+.seo-narrow .seo-wrap p,.seo-narrow .seo-wrap li{line-height:1.8;font-size:15.5px;margin-bottom:10px}
+.seo-narrow .seo-wrap ul{padding-left:22px}
