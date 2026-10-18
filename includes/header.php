@@ -2,7 +2,8 @@
 require_once __DIR__ . '/settings.php';
 /** @var array $page  @var string $route  @var string $nav */
 $faq    = $faq ?? [];
-$robots = (is_canonical_host() && empty($robots404)) ? 'index,follow,max-image-preview:large,max-snippet:-1' : 'noindex,nofollow';
+$robots = (is_canonical_host() && empty($robots404) && ($page['robots'] ?? 'index') !== 'noindex')
+    ? 'index,follow,max-image-preview:large,max-snippet:-1' : 'noindex,nofollow';
 ?>
 <!DOCTYPE html>
 <html lang="en-IN">

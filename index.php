@@ -6,6 +6,7 @@ declare(strict_types=1);
 require __DIR__ . '/includes/config.php';
 require __DIR__ . '/includes/helpers.php';
 require __DIR__ . '/includes/seo.php';
+require __DIR__ . '/includes/seo_overrides.php';
 
 $path = rawurldecode((string)parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH));
 $route = strtolower(trim($path, '/'));
@@ -57,7 +58,7 @@ if (!isset($registry[$route])) {
     exit;
 }
 
-$page = $registry[$route];
+$page = apply_seo_override($registry[$route], $route);
 $nav  = $page['nav'] ?? '';
 $faq  = [];
 $pageJs = '';

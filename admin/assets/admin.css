@@ -128,3 +128,13 @@ textarea.code{font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;backgro
 .slot-pos{font:600 11px ui-monospace,Menlo,monospace;background:#f0ead8;color:#7a6420;padding:2px 8px;border-radius:6px;margin-left:8px;text-transform:none;letter-spacing:0}
 .alert.warn{background:#fff7e0;color:#7a5b00;border:1px solid #f0dc9b}
 .script-form .btn{margin-top:4px}
+
+/* SEO manager */
+.len,.cnt{display:inline-block;font:700 11px Inter;padding:2px 8px;border-radius:20px;margin-right:4px}
+.len.ok,.cnt.ok{background:#e0f3e3;color:var(--ok)}.len.bad,.cnt.bad{background:#fff4d1;color:#8a6a00}
+.cnt{float:right}
+.seo-form-admin .card{margin-bottom:16px}
+.seo-form-admin .cl-form{grid-template-columns:repeat(2,1fr)}
+.og-prev{width:100%;max-width:360px;aspect-ratio:1.91/1;object-fit:cover;border-radius:10px;border:1px solid var(--line);margin-top:4px}
+.serp{border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:12px;font-family:Arial,sans-serif;background:#fff}
+.serp-url{color:#4d5156;font-size:13px}.serp-title{color:#1a0dab;font-size:19px;line-height:1.3;margin:4px 0}.serp-desc{color:#4d5156;font-size:13.5px;line-height:1.55}

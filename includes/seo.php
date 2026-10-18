@@ -152,7 +152,13 @@ function image_size(string $path): ?array
 
 function render_head(array $page, string $route, array $faq = [], string $robots = 'index,follow,max-image-preview:large,max-snippet:-1'): void
 {
-    $canonical = abs_url($route);
+    $canonical = !empty($page['canonical_url']) ? $page['canonical_url'] : abs_url($route);
+    $ogTitle   = $page['og_title'] ?? $page['title'];
+    $ogDesc    = $page['og_description'] ?? $page['description'];
+    $extra     = '';
+    if (!empty($page['extra_schema']) && ($decoded = json_decode($page['extra_schema'], true)) !== null) {
+        $extra = json_encode($decoded, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG);
+    }
     $image     = abs_url($page['image'] ?? '/img/slider-1.jpg');
     $schema    = json_encode(schema_graph($page, $route, $faq), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG);
     ?>
@@ -174,8 +180,8 @@ function render_head(array $page, string $route, array $faq = [], string $robots
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_IN">
 <meta property="og:site_name" content="<?= e(SITE_NAME) ?>">
-<meta property="og:title" content="<?= e($page['title']) ?>">
-<meta property="og:description" content="<?= e($page['description']) ?>">
+<meta property="og:title" content="<?= e($ogTitle) ?>">
+<meta property="og:description" content="<?= e($ogDesc) ?>">
 <meta property="og:url" content="<?= e($canonical) ?>">
 <meta property="og:image" content="<?= e($image) ?>">
 <?php if ($size = image_size($page['image'] ?? '/img/slider-1.jpg')): ?><meta property="og:image:width" content="<?= $size[0] ?>">
@@ -184,8 +190,8 @@ function render_head(array $page, string $route, array $faq = [], string $robots
 <?php endif; ?>
 <meta property="og:image:alt" content="<?= e($page['title']) ?>">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="<?= e($page['title']) ?>">
-<meta name="twitter:description" content="<?= e($page['description']) ?>">
+<meta name="twitter:title" content="<?= e($ogTitle) ?>">
+<meta name="twitter:description" content="<?= e($ogDesc) ?>">
 <meta name="twitter:image" content="<?= e($image) ?>">
 <meta name="twitter:image:alt" content="<?= e($page['title']) ?>">
 <meta name="format-detection" content="telephone=yes">
@@ -194,5 +200,7 @@ function render_head(array $page, string $route, array $faq = [], string $robots
 <link rel="icon" href="/img/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/img/favicon.jpg">
 <script type="application/ld+json"><?= $schema ?></script>
+<?php if ($extra): ?><script type="application/ld+json"><?= $extra ?></script>
+<?php endif; ?>
 <?php
 }

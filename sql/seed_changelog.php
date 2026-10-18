@@ -13,6 +13,9 @@ foreach (array_filter(array_map('trim', explode(';', file_get_contents(__DIR__ .
 
 $D = '2026-10-18';
 $entries = [
+  // ---------------- v1.2.0 ----------------
+  ['1.2.0', 'new', 'Admin "SEO" manager: control SEO of every page from the dashboard', 'Edit title, meta description, keywords, Open Graph title/description/image, canonical URL, index/noindex, sitemap inclusion, priority, change frequency and custom JSON-LD per page. Includes live Google-style preview and length counters. Empty fields fall back to the built-in defaults, with one-click reset.'],
+  ['1.2.0', 'improved', 'Sitemap respects SEO manager', 'Pages set to noindex or excluded from the sitemap are omitted; custom canonical, priority and change frequency are used.'],
   // ---------------- v1.1.0 ----------------
   ['1.1.0', 'new', 'Admin "Scripts" settings: Header, Body-first and Footer script boxes', 'Paste Google Tag Manager, Analytics, Meta Pixel, chat widgets or verification tags from the dashboard (Admin → Scripts). Saved in the database and injected into every public page without touching code.'],
   ['1.1.0', 'improved', 'SEO: unique, descriptive image alt text on every page', 'Replaced generic/duplicate alts ("Suite View 2", "tiger safari india") with descriptive, unique text for accessibility and image search.'],

@@ -62,3 +62,21 @@ CREATE TABLE IF NOT EXISTS settings (
   updated_at    DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (setting_key)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS seo_pages (
+  route          VARCHAR(120) NOT NULL,
+  title          VARCHAR(190) NULL,
+  description    VARCHAR(400) NULL,
+  keywords       VARCHAR(500) NULL,
+  og_title       VARCHAR(190) NULL,
+  og_description VARCHAR(400) NULL,
+  og_image       VARCHAR(255) NULL,
+  canonical_url  VARCHAR(255) NULL,
+  robots         ENUM('index','noindex') NULL,
+  in_sitemap     TINYINT(1) NULL,
+  priority       VARCHAR(4) NULL,
+  changefreq     VARCHAR(10) NULL,
+  extra_schema   MEDIUMTEXT NULL,
+  updated_at     DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (route)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
