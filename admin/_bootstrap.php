@@ -22,8 +22,8 @@ function require_admin(): array
         header('Location: /admin/login.php');
         exit;
     }
-    // Idle timeout: 2 hours.
-    if (time() - ($_SESSION['last_seen'] ?? 0) > 7200) {
+    // Idle timeout: 30 days (sliding).
+    if (time() - ($_SESSION['last_seen'] ?? 0) > SESSION_LIFETIME) {
         $_SESSION = [];
         session_destroy();
         header('Location: /admin/login.php?expired=1');

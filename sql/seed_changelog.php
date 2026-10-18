@@ -13,6 +13,9 @@ foreach (array_filter(array_map('trim', explode(';', file_get_contents(__DIR__ .
 
 $D = '2026-10-18';
 $entries = [
+  // ---------------- v1.3.1 ----------------
+  ['1.3.1', 'improved', 'Admin login is remembered for 30 days', 'Sign-in now persists across browser restarts. The 30-day window slides forward on every visit, so active admins stay signed in. Previously it ended when the browser closed or after 2 idle hours.'],
+  ['1.3.1', 'fixed', 'Admin could be logged out unexpectedly on shared hosting', 'Sessions are now stored in a private folder outside the web root, so the server\'s default clean-up (about 24 minutes) no longer deletes them.'],
   // ---------------- v1.3.0 ----------------
   ['1.3.0', 'new', 'Branded error pages for 403, 404, 500 and 503', 'Dark/gold design with the logo, a clear message, Back-to-Home / Contact / WhatsApp buttons, popular-page links and phone/email. Replaces the plain browser "This page isn\'t working" screen.'],
   ['1.3.0', 'fixed', 'Visitors could see a blank browser HTTP 500 error', 'Uncaught exceptions and fatal errors are now caught, logged to app_errors.log (outside the web root) and answered with the branded 500 page with a Try-again button.'],
