@@ -62,6 +62,7 @@ function start_secure_session(string $name = 'sg_admin'): void
 
     // Sliding expiry: push the cookie forward on every request.
     if (!headers_sent() && session_id() !== '') {
+        unset($params['lifetime']);
         setcookie($name, session_id(), ['expires' => time() + SESSION_LIFETIME] + $params);
     }
 }
