@@ -4,6 +4,7 @@ declare(strict_types=1);
 /** Front controller: every non-file URL lands here (see .htaccess). */
 
 require __DIR__ . '/includes/config.php';
+require __DIR__ . '/includes/errors.php';
 require __DIR__ . '/includes/helpers.php';
 require __DIR__ . '/includes/seo.php';
 require __DIR__ . '/includes/seo_overrides.php';
@@ -36,25 +37,7 @@ if ($route === 'robots.txt') {
 $registry = require __DIR__ . '/includes/pages.php';
 
 if (!isset($registry[$route])) {
-    http_response_code(404);
-    $page = [
-        'title' => 'Page Not Found | The Sangam House', 'description' => 'The page you are looking for could not be found.',
-        'image' => '/img/slider-1.jpg', 'breadcrumb' => 'Not Found',
-    ];
-    $nav = '';
-    $pageJs = '';
-    $robots404 = true;
-    require __DIR__ . '/includes/header.php';
-    ?>
-<main class="seo-narrow"><div class="seo-wrap" style="text-align:center">
-  <h1>404 — Page not found</h1>
-  <p>Sorry, we couldn't find that page. Try one of these:</p>
-  <p class="seo-related" style="justify-content:center">
-    <a href="/">Home</a><a href="/accommodation">Accommodation</a><a href="/activities">Activities</a><a href="/contact">Contact</a>
-  </p>
-</div></main>
-    <?php
-    require __DIR__ . '/includes/footer.php';
+    render_error_view(404);
     exit;
 }
 

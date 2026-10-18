@@ -13,6 +13,10 @@ foreach (array_filter(array_map('trim', explode(';', file_get_contents(__DIR__ .
 
 $D = '2026-10-18';
 $entries = [
+  // ---------------- v1.3.0 ----------------
+  ['1.3.0', 'new', 'Branded error pages for 403, 404, 500 and 503', 'Dark/gold design with the logo, a clear message, Back-to-Home / Contact / WhatsApp buttons, popular-page links and phone/email. Replaces the plain browser "This page isn\'t working" screen.'],
+  ['1.3.0', 'fixed', 'Visitors could see a blank browser HTTP 500 error', 'Uncaught exceptions and fatal errors are now caught, logged to app_errors.log (outside the web root) and answered with the branded 500 page with a Try-again button.'],
+  ['1.3.0', 'improved', 'Apache ErrorDocument rules route server-level errors to the same branded page', 'Blocked folders (403) and missing files (404) look consistent with the rest of the site; error pages are never indexed.'],
   // ---------------- v1.2.0 ----------------
   ['1.2.0', 'new', 'Admin "SEO" manager: control SEO of every page from the dashboard', 'Edit title, meta description, keywords, Open Graph title/description/image, canonical URL, index/noindex, sitemap inclusion, priority, change frequency and custom JSON-LD per page. Includes live Google-style preview and length counters. Empty fields fall back to the built-in defaults, with one-click reset.'],
   ['1.2.0', 'improved', 'Sitemap respects SEO manager', 'Pages set to noindex or excluded from the sitemap are omitted; custom canonical, priority and change frequency are used.'],
