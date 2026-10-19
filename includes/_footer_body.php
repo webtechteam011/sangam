@@ -58,6 +58,7 @@
                         <li><a href="/hotels-in-devprayag" class="footer-link">Hotels in Devprayag</a></li>
                         <li><a href="/resorts-in-devprayag" class="footer-link">Resorts in Devprayag</a></li>
                         <li><a href="/activities" class="footer-link">Activities</a></li>
+                        <li><a href="/blog" class="footer-link">Blog</a></li>
                         <li><a href="/contact" class="footer-link">Contact</a></li>
                     </ul>
                 </div>

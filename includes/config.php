@@ -6,8 +6,10 @@ declare(strict_types=1);
  * ../config.private.php  — see config.private.example.php.
  */
 
+date_default_timezone_set('Asia/Kolkata');   // matches the DB session time zone (+05:30)
+
 const SITE_NAME    = 'The Sangam House';
-const APP_VERSION  = '1.4.0';
+const APP_VERSION  = '1.5.0';
 const SITE_PHONE_1 = '+91 9889882696';
 const SITE_PHONE_2 = '+91 9999683311';
 const SITE_EMAIL   = 'info@thesangamhouse.com';

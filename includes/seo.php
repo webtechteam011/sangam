@@ -115,11 +115,13 @@ function schema_graph(array $page, string $route, array $faq = []): array
     }
 
     $crumbs = [['Home', '']];
-    if (!empty($page['parent'])) {
+    if (!empty($page['crumbs'])) {
+        $crumbs = array_merge($crumbs, $page['crumbs']);
+    } elseif (!empty($page['parent'])) {
         $parent = (require __DIR__ . '/pages.php')[$page['parent']];
         $crumbs[] = [$parent['breadcrumb'], $page['parent']];
     }
-    if ($route !== '') {
+    if ($route !== '' && empty($page['crumbs'])) {
         $crumbs[] = [$page['breadcrumb'], $route];
     }
     if (count($crumbs) > 1) {
@@ -139,6 +141,9 @@ function schema_graph(array $page, string $route, array $faq = []): array
                 'acceptedAnswer' => ['@type' => 'Answer', 'text' => $f[1]],
             ], $faq),
         ];
+    }
+    foreach ($page['extra_graph'] ?? [] as $node) {
+        $graph[] = $node;
     }
     return ['@context' => 'https://schema.org', '@graph' => $graph];
 }
@@ -177,7 +182,11 @@ function render_head(array $page, string $route, array $faq = [], string $robots
 <link rel="canonical" href="<?= e($canonical) ?>">
 <link rel="alternate" hreflang="en-IN" href="<?= e($canonical) ?>">
 <link rel="alternate" hreflang="x-default" href="<?= e($canonical) ?>">
-<meta property="og:type" content="website">
+<link rel="alternate" type="application/rss+xml" title="<?= e(SITE_NAME) ?> Blog" href="<?= e(abs_url('blog/feed')) ?>">
+<?php if (!empty($page['prev_url'])): ?><link rel="prev" href="<?= e($page['prev_url']) ?>">
+<?php endif; if (!empty($page['next_url'])): ?><link rel="next" href="<?= e($page['next_url']) ?>">
+<?php endif; ?>
+<meta property="og:type" content="<?= e($page['og_type'] ?? 'website') ?>">
 <meta property="og:locale" content="en_IN">
 <meta property="og:site_name" content="<?= e(SITE_NAME) ?>">
 <meta property="og:title" content="<?= e($ogTitle) ?>">
@@ -188,12 +197,18 @@ function render_head(array $page, string $route, array $faq = [], string $robots
 <meta property="og:image:height" content="<?= $size[1] ?>">
 <meta property="og:image:type" content="<?= e($size[2]) ?>">
 <?php endif; ?>
-<meta property="og:image:alt" content="<?= e($page['title']) ?>">
+<meta property="og:image:alt" content="<?= e($page['image_alt'] ?? $page['title']) ?>">
+<?php if (!empty($page['article'])): $ar = $page['article']; ?><meta property="article:published_time" content="<?= e($ar['published']) ?>">
+<meta property="article:modified_time" content="<?= e($ar['modified']) ?>">
+<meta property="article:author" content="<?= e($ar['author']) ?>">
+<?php if (!empty($ar['section'])): ?><meta property="article:section" content="<?= e($ar['section']) ?>">
+<?php endif; foreach ($ar['tags'] ?? [] as $t): ?><meta property="article:tag" content="<?= e($t) ?>">
+<?php endforeach; endif; ?>
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="<?= e($ogTitle) ?>">
 <meta name="twitter:description" content="<?= e($ogDesc) ?>">
 <meta name="twitter:image" content="<?= e($image) ?>">
-<meta name="twitter:image:alt" content="<?= e($page['title']) ?>">
+<meta name="twitter:image:alt" content="<?= e($page['image_alt'] ?? $page['title']) ?>">
 <meta name="format-detection" content="telephone=yes">
 <meta name="application-name" content="<?= e(SITE_NAME) ?>">
 <meta name="apple-mobile-web-app-title" content="<?= e(SITE_NAME) ?>">

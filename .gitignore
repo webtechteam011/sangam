@@ -2,3 +2,5 @@
 config.private.php
 *.log
 .env
+uploads/blog/*
+!uploads/blog/.gitignore

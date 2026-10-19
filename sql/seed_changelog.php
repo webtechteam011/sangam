@@ -13,6 +13,11 @@ foreach (array_filter(array_map('trim', explode(';', file_get_contents(__DIR__ .
 
 $D = '2026-10-18';
 $entries = [
+  // ---------------- v1.5.0 ----------------
+  ['1.5.0', 'new', 'Blog management system', 'Admin → Blog: write, schedule and publish articles with a rich editor (headings, images, tables, YouTube, callouts, buttons, HTML mode), categories, tags, featured posts, FAQ blocks, revisions with one-click restore, duplicate, trash and bulk actions, plus per-post view analytics.'],
+  ['1.5.0', 'new', 'Media library with automatic image optimisation', 'Drag-and-drop uploads are validated, resized to 1920px, stripped of metadata and given thumbnails. Alt text can be edited per image; images in use are protected from deletion.'],
+  ['1.5.0', 'new', 'Blog SEO tools', 'Live Google preview, focus-keyword checklist and 0-100 score in the editor; BlogPosting, Blog, Breadcrumb and FAQ JSON-LD; Open Graph article tags; blog posts, categories and tags added to sitemap.xml; RSS feed at /blog/feed; 301 redirects when a post URL changes; thin tag pages auto-noindex.'],
+  ['1.5.0', 'new', 'Public blog at /blog', 'Featured post, category filters, search, pagination with rel prev/next, auto table of contents, reading progress, related posts, share buttons and booking call-to-actions. Scheduled posts go live automatically.'],
   // ---------------- v1.4.0 ----------------
   ['1.4.0', 'new', 'Clean URLs everywhere: no more ".php" in the address bar', 'Admin pages are now /admin/login, /admin/seo, /admin/settings, /admin/version, /admin/enquiry and /admin/export. Any old .php address 301-redirects to the clean URL.'],
   ['1.4.0', 'security', 'Bot protection: scanners and aggressive scrapers are blocked', 'Known vulnerability scanners (sqlmap, nikto, nmap, wpscan …) and heavy scrapers/AI crawlers get 403. Real search engines (Google, Bing) and social previews are unaffected.'],

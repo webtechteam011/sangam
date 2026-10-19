@@ -27,3 +27,10 @@ tools/seo_audit.py   SEO audit (python3 tools/seo_audit.py https://site)
 Titles, descriptions, canonical, Open Graph and JSON-LD come from `includes/pages.php`. `/sitemap.xml` and `/robots.txt` are generated. Non-production hosts are automatically `noindex`.
 
 Secrets never live in this repo.
+
+## Blog (v1.5.0)
+Public: `/blog`, `/blog/{slug}`, `/blog/category/{slug}`, `/blog/tag/{slug}`, `/blog/feed` (RSS). Admin: `/admin/blog` (posts), `/admin/blog-edit`, `/admin/blog-taxonomy`, `/admin/media`.
+- Deploy: run `php sql/migrate_blog.php` once on the server (creates tables + default categories), then upload the code. Keep `uploads/blog/` out of `rsync --delete` / git deploys — it holds user images.
+- Scheduling needs no cron: a post with status Published and a future date goes live automatically.
+- Post HTML is whitelisted server-side (`blog_sanitize_html`); uploads are re-encoded and PHP execution is disabled in `uploads/`.
+- Slug changes create 301 redirects; JSON-LD (BlogPosting/Blog/FAQ/Breadcrumb), sitemap and RSS are generated.

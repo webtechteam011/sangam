@@ -88,6 +88,13 @@ return [
         'keywords' => 'devprayag weekend gateway, devprayag weekend getaway, hotel near rishikesh devprayag, weekend trip from rishikesh, devprayag trip',
         'image' => '/img/riverrafting.jpg', 'breadcrumb' => 'Devprayag Weekend Getaway',
     ],
+    'blog' => [
+        'file' => 'blog', 'type' => 'blog', 'ptype' => 'CollectionPage', 'nav' => 'blog', 'priority' => '0.8', 'changefreq' => 'daily',
+        'title' => 'Devprayag Travel Guide & Blog | The Sangam House',
+        'description' => 'Plan your Devprayag trip: sangam darshan, temples, rafting, weekend getaways from Rishikesh and stay tips — written by the team at The Sangam House.',
+        'keywords' => 'devprayag travel blog, devprayag travel guide, places to visit in devprayag, devprayag weekend getaway, things to do in devprayag, devprayag tourism',
+        'image' => '/img/davparyag.jpg', 'breadcrumb' => 'Blog',
+    ],
     'privacy-policy' => [
         'file' => 'privacy-policy', 'type' => 'static', 'nav' => '', 'priority' => '0.3', 'changefreq' => 'yearly',
         'title' => 'Privacy Policy | The Sangam House, Devprayag',

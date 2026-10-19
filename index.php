@@ -37,6 +37,11 @@ if ($route === 'robots.txt') {
     exit;
 }
 
+if ($route === 'blog' || str_starts_with($route, 'blog/')) {
+    require __DIR__ . '/includes/blog_router.php';
+    exit;
+}
+
 $registry = require __DIR__ . '/includes/pages.php';
 
 if (!isset($registry[$route])) {

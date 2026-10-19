@@ -23,6 +23,8 @@ $robots = (is_canonical_host() && empty($robots404) && ($page['robots'] ?? 'inde
 </noscript>
 <link rel="stylesheet" href="/assets/css/style.css?v=<?= (int)@filemtime(__DIR__ . '/../assets/css/style.css') ?>">
 <link rel="stylesheet" href="/assets/css/extra.css?v=<?= (int)@filemtime(__DIR__ . '/../assets/css/extra.css') ?>">
+<?php if (!empty($page['blog'])): ?><link rel="stylesheet" href="/assets/css/blog.css?v=<?= (int)@filemtime(__DIR__ . '/../assets/css/blog.css') ?>">
+<?php endif; ?>
 <?php if (is_canonical_host()): ?>
 <script async src="https://www.googletagmanager.com/gtag/js?id=<?= GTAG_ID ?>"></script>
 <script>

@@ -42,6 +42,7 @@
         </li>
 
         <li><a <?= nav_cls('activities') ?> href="/activities">Activities</a></li>
+        <li><a <?= nav_cls('blog') ?> href="/blog">Blog</a></li>
         <li><a <?= nav_cls('contact') ?> href="/contact">Contact</a></li>
         <li class="mobile-book"><a class="book-btn" href="https://www.secure-booking-engine.com/accounts/N7SAVY4IvU12gH563XN2NQ/properties/uK9uqJbfQJjEr9POldilkw/booking-engine/web/source/4wsctBw6Oq6j-g9XuxeRzQ/" target="_blank" rel="noopener">BOOK STAY</a></li>
       </ul>
