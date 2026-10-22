@@ -37,7 +37,6 @@
             <ul class="dropdown-menu">
                <li><a href="/deluxe-mountain-view-room">Deluxe Mountain View Room</a></li>
                <li><a href="/luxury-himalayan-dormitory">Luxury Himalayan Dormitory</a></li>
-               <li><a href="/hotels-in-devprayag">Hotels in Devprayag</a></li>
             </ul>
         </li>
 
