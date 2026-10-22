@@ -49,5 +49,6 @@ button[disabled]{opacity:.7;cursor:progress}
 .seo-narrow{padding:calc(var(--header-h) + 50px) 20px 60px;background:#faf8f3;min-height:60vh;font-family:'Poppins',sans-serif}
 .seo-narrow .seo-wrap h1{font-size:34px;margin-bottom:20px;color:#1c2025}
 .seo-narrow .seo-wrap h2{font-size:21px;margin:26px 0 8px;color:#1c2025}
-.seo-narrow .seo-wrap p,.seo-narrow .seo-wrap li{line-height:1.8;font-size:15.5px;margin-bottom:10px}
+.seo-narrow .seo-wrap p,.seo-narrow .seo-wrap li{line-height:1.8;font-size:15.5px;color:#3d4450;margin-bottom:10px}
 .seo-narrow .seo-wrap ul{padding-left:22px}
+.seo-narrow .seo-wrap a{color:#8a6d12;text-decoration:underline}
