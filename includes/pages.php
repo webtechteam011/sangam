@@ -54,7 +54,7 @@ return [
     'contact' => [
         'file' => 'contact', 'type' => 'static', 'ptype' => 'ContactPage', 'preload' => '/img/room5.jpg', 'nav' => 'contact', 'priority' => '0.8', 'changefreq' => 'yearly',
         'title' => 'Contact & Book Your Stay | The Sangam House, Devprayag',
-        'description' => 'Call +91 98898 82696, WhatsApp or send an enquiry to book The Sangam House, Devprayag. Get quick replies on rooms, dormitory, dates and best direct rates.',
+        'description' => 'Call +91 99996 83311, WhatsApp or send an enquiry to book The Sangam House, Devprayag. Get quick replies on rooms, dormitory, dates and best direct rates.',
         'keywords' => 'devprayag hotel booking, devprayag resort booking, contact The Sangam House, hotel enquiry devprayag',
         'image' => '/img/about.jpg', 'breadcrumb' => 'Contact',
     ],

@@ -5,7 +5,7 @@ declare(strict_types=1);
  * Minimal SMTP sender (implicit SSL on 465 or STARTTLS on 587). Returns false on any failure.
  * Config comes from .env (SMTP_*), see .env.example.
  */
-function smtp_send(string $to, string $subject, string $body, ?string $replyTo = null): bool
+function smtp_send(string $to, string $subject, string $body, ?string $replyTo = null, ?string $html = null): bool
 {
     $host = SMTP_HOST;
     $user = SMTP_USER;
@@ -66,8 +66,16 @@ function smtp_send(string $to, string $subject, string $body, ?string $replyTo =
             $h .= 'Reply-To: ' . $clean($replyTo) . "\r\n";
         }
         $h .= 'Subject: =?UTF-8?B?' . base64_encode($clean($subject)) . "?=\r\n";
-        $h .= 'Date: ' . date('r') . "\r\nMIME-Version: 1.0\r\nContent-Type: text/plain; charset=UTF-8\r\nContent-Transfer-Encoding: base64\r\n";
-        $data = $h . "\r\n" . chunk_split(base64_encode($body));
+        $h .= 'Date: ' . date('r') . "\r\nMIME-Version: 1.0\r\n";
+        if ($html === null) {
+            $data = $h . "Content-Type: text/plain; charset=UTF-8\r\nContent-Transfer-Encoding: base64\r\n\r\n" . chunk_split(base64_encode($body));
+        } else {
+            $b = 'sg_' . bin2hex(random_bytes(8));
+            $data = $h . "Content-Type: multipart/alternative; boundary=\"$b\"\r\n\r\n"
+                . "--$b\r\nContent-Type: text/plain; charset=UTF-8\r\nContent-Transfer-Encoding: base64\r\n\r\n" . chunk_split(base64_encode($body))
+                . "--$b\r\nContent-Type: text/html; charset=UTF-8\r\nContent-Transfer-Encoding: base64\r\n\r\n" . chunk_split(base64_encode($html))
+                . "--$b--\r\n";
+        }
         fwrite($fp, $data . "\r\n.\r\n");
         if (!str_starts_with($read(), '250')) {
             throw new RuntimeException('message rejected');

@@ -21,5 +21,5 @@
   <h2>Website content</h2>
   <p>Text, photographs and logos on this site belong to The Sangam House and must not be copied without permission. We try to keep information accurate but do not guarantee that it is always complete or up to date.</p>
   <h2>Changes and contact</h2>
-  <p>We may update these terms from time to time. Questions? Email <a href="mailto:<?= SITE_EMAIL ?>"><?= SITE_EMAIL ?></a> or call <a href="tel:+919889882696"><?= SITE_PHONE_1 ?></a>. See also our <a href="/cancellation-policy">Cancellation Policy</a> and <a href="/privacy-policy">Privacy Policy</a>.</p>
+  <p>We may update these terms from time to time. Questions? Email <a href="mailto:<?= SITE_EMAIL ?>"><?= SITE_EMAIL ?></a> or call <a href="tel:+919999683311"><?= SITE_PHONE_1 ?></a>. See also our <a href="/cancellation-policy">Cancellation Policy</a> and <a href="/privacy-policy">Privacy Policy</a>.</p>
 </div></main>

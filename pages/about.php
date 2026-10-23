@@ -17,7 +17,7 @@
                     Set against the Himalayan slopes, The Sangam House offers a warm, grounded base from which to experience one of Uttarakhand’s most remarkable spiritual towns. Wake to mountain light, follow the river through the valley, and return to the comfort of a welcoming home.
                 </p>
                 <p class="ts-intro-paragraph">
-                    Great location. Honest value. Feels like home. Get in touch with us at <a href="mailto:info@thesangamhouse.com" class="ts-intro-email-link">info@thesangamhouse.com</a> or call us directly at 9990399377.
+                    Great location. Honest value. Feels like home. Get in touch with us at <a href="mailto:info@thesangamhouse.com" class="ts-intro-email-link">info@thesangamhouse.com</a> or call us directly at 9999683311.
                 </p>
             </div>
         </div>

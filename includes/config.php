@@ -10,8 +10,7 @@ date_default_timezone_set('Asia/Kolkata');   // matches the DB session time zone
 
 const SITE_NAME    = 'The Sangam House';
 const APP_VERSION  = '1.5.0';
-const SITE_PHONE_1 = '+91 9889882696';
-const SITE_PHONE_2 = '+91 9999683311';
+const SITE_PHONE_1 = '+91 9999683311';
 const SITE_EMAIL   = 'info@thesangamhouse.com';
 const SITE_WHATSAPP = '919999683311';
 const SITE_LOCALITY = 'Devprayag';

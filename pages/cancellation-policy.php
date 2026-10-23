@@ -5,7 +5,7 @@
   <p>Cancellation windows, any advance payment and refund amounts depend on the rate, season and group size, and are stated in the booking confirmation we send you. The terms in your confirmation apply to your booking.</p>
   <h2>How to cancel or change dates</h2>
   <ul>
-    <li>Tell us as early as possible by phone (<a href="tel:+919889882696"><?= SITE_PHONE_1 ?></a>), WhatsApp or email (<a href="mailto:<?= SITE_EMAIL ?>"><?= SITE_EMAIL ?></a>), quoting your name and dates.</li>
+    <li>Tell us as early as possible by phone (<a href="tel:+919999683311"><?= SITE_PHONE_1 ?></a>), WhatsApp or email (<a href="mailto:<?= SITE_EMAIL ?>"><?= SITE_EMAIL ?></a>), quoting your name and dates.</li>
     <li>Date changes are accepted subject to availability and the rate on the new dates.</li>
   </ul>
   <h2>No-shows and early departure</h2>

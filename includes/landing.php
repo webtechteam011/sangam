@@ -24,7 +24,7 @@ return [
     ],
     'faq' => [
         ['What is the best hotel in Devprayag?', 'The Sangam House is a good choice for travellers who want a stay next to the Devprayag sangam, with king-size AC rooms, free parking, vegetarian food and direct booking at an honest rate.'],
-        ['How do I book a hotel in Devprayag?', 'Send an enquiry from this page, call +91 98898 82696 or message us on WhatsApp with your dates and number of guests. We confirm availability and the best direct rate quickly.'],
+        ['How do I book a hotel in Devprayag?', 'Send an enquiry from this page, call +91 99996 83311 or message us on WhatsApp with your dates and number of guests. We confirm availability and the best direct rate quickly.'],
         ['Is parking available at the hotel?', 'Yes. Free secure parking for cars is available on the property.'],
         ['Is vegetarian food available?', 'Yes. Pure vegetarian food options are available on-site, along with a multi-cuisine restaurant.'],
     ],

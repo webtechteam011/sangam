@@ -92,7 +92,7 @@ footer a{color:var(--gold);text-decoration:none}
     </nav>
   </div>
 </main>
-<footer>Need help right now? Call <a href="tel:+919889882696">+91 98898 82696</a> · <a href="mailto:info@thesangamhouse.com">info@thesangamhouse.com</a></footer>
+<footer>Need help right now? Call <a href="tel:+919999683311">+91 99996 83311</a> · <a href="mailto:info@thesangamhouse.com">info@thesangamhouse.com</a></footer>
 </body>
 </html>
 <?php

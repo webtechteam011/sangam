@@ -3,7 +3,7 @@
     <a href="https://wa.me/919999683311?text=Hello%2C%20I%20would%20like%20to%20know%20more%20about%20staying%20at%20The%20Sangam%20House." class="fixed-gplus" target="_blank"><i class=""><img src="/img/wts.png" alt="WhatsApp The Sangam House"> </i> <span>WhatsApp Us</span></a>
   </div>
   <div>
-    <a href="tel:+919889882696" class="fixed-facebook"><i class=""><img src="/img/phone.png" alt="Call The Sangam House"></i> <span>Call Us</span></a>
+    <a href="tel:+919999683311" class="fixed-facebook"><i class=""><img src="/img/phone.png" alt="Call The Sangam House"></i> <span>Call Us</span></a>
   </div>
   </div>
 
@@ -13,7 +13,7 @@
     <div class="topbar">
       <div class="topbar-left">
         <span>&#9993; info@thesangamhouse.com</span>
-        <span>&#128222; +91 9889882696, +91 9999683311</span>
+        <span>&#128222; +91 9999683311</span>
       </div>
       <div class="topbar-right">
     <span class="location">Devprayag, Uttarakhand — Where the Ganga Begins</span>

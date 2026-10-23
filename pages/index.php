@@ -580,7 +580,7 @@ prepared for every palate.</p>
                     </div>
                     <div>
                         <h4 class="contact-detail-title">Direct Phone</h4>
-                        <p class="contact-detail-text">+91 9889882696, +91 9999683311</p>
+                        <p class="contact-detail-text">+91 9999683311</p>
                     </div>
                 </div>
 

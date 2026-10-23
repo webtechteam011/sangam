@@ -48,7 +48,7 @@ function schema_graph(array $page, string $route, array $faq = []): array
             'sameAs' => ['https://www.instagram.com/thesangamhouse/'],
             'contactPoint' => [[
                 '@type' => 'ContactPoint', 'contactType' => 'reservations',
-                'telephone' => [SITE_PHONE_1, SITE_PHONE_2], 'email' => SITE_EMAIL,
+                'telephone' => SITE_PHONE_1, 'email' => SITE_EMAIL,
                 'availableLanguage' => ['en', 'hi'], 'areaServed' => 'IN',
             ]],
             'openingHoursSpecification' => [[

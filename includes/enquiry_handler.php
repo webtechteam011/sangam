@@ -98,27 +98,59 @@ try {
     json_response(['ok' => false, 'message' => 'Sorry, we could not save your enquiry. Please call or WhatsApp us.'], 500);
 }
 
-// Best-effort email notification; never blocks the response.
-$clean = static fn(string $s): string => str_replace(["\r", "\n"], ' ', $s);
-$body  = "New website enquiry\n\n"
-    . "Name: $name\nPhone: $phone\nEmail: " . ($email ?: '-') . "\nRoom: " . ($room ?: '-')
-    . "\nCheck-in: " . ($checkin ?: '-') . "\nCheck-out: " . ($checkout ?: '-') . "\nGuests: " . ($guests ?: '-')
-    . "\nSource: $source\n\nMessage:\n" . ($message ?: '-') . "\n";
-$host = preg_replace('/^www\./', '', (string)($_SERVER['HTTP_HOST'] ?? 'localhost'));
-$headers = 'From: ' . SITE_NAME . ' <noreply@' . $host . ">\r\nContent-Type: text/plain; charset=UTF-8\r\n";
-if ($email !== '') {
-    $headers .= 'Reply-To: ' . $clean($email) . "\r\n";
-}
+// Best-effort emails; never block the response. Only fields the form actually collected are included.
 require_once __DIR__ . '/mailer.php';
-if (!smtp_send(NOTIFY_EMAIL, 'New enquiry from ' . $clean($name), $body, $email ?: null)) {
-    @mail(NOTIFY_EMAIL, 'New enquiry from ' . $clean($name), $body, $headers);
+$clean = static fn(string $s): string => str_replace(["\r", "\n"], ' ', $s);
+$fields = array_filter([
+    'Name' => $name, 'Phone' => $phone, 'Email' => $email, 'Room' => $room,
+    'Guests' => $guests, 'Message' => $message,
+], static fn($v) => $v !== null && $v !== '' && $v !== 0);
+
+$mailHtml = static function (string $heading, string $intro, array $rows) use ($clean): string {
+    $h = static fn($v): string => htmlspecialchars((string)$v, ENT_QUOTES, 'UTF-8');
+    $tr = '';
+    foreach ($rows as $k => $v) {
+        $val = $k === 'Message' ? nl2br($h($v)) : $h($v);
+        if ($k === 'Phone') {
+            $val = '<a href="tel:' . $h(preg_replace('/[^\d+]/', '', (string)$v)) . '" style="color:#8a6d12;text-decoration:none">' . $h($v) . '</a>';
+        } elseif ($k === 'Email') {
+            $val = '<a href="mailto:' . $h($v) . '" style="color:#8a6d12;text-decoration:none">' . $h($v) . '</a>';
+        }
+        $tr .= '<tr><td style="padding:10px 14px;border-bottom:1px solid #eee;color:#777;font-size:13px;width:110px;vertical-align:top">' . $h($k)
+            . '</td><td style="padding:10px 14px;border-bottom:1px solid #eee;color:#1c2025;font-size:15px">' . $val . '</td></tr>';
+    }
+    $logo = SITE_URL . '/img/logo.png';
+    return '<!doctype html><html><body style="margin:0;padding:0;background:#f4f1ea;font-family:Arial,Helvetica,sans-serif">'
+        . '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f4f1ea;padding:24px 12px"><tr><td align="center">'
+        . '<table role="presentation" width="560" cellpadding="0" cellspacing="0" style="max-width:560px;width:100%;background:#fff;border-radius:10px;overflow:hidden">'
+        . '<tr><td align="center" style="background:#1c2025;padding:22px"><img src="' . $h($logo) . '" alt="The Sangam House" height="64" style="height:64px;max-width:240px"></td></tr>'
+        . '<tr><td style="padding:26px 28px 8px"><h2 style="margin:0 0 8px;font-size:21px;color:#1c2025">' . $h($heading) . '</h2>'
+        . '<p style="margin:0;font-size:15px;line-height:1.6;color:#444">' . $h($intro) . '</p></td></tr>'
+        . '<tr><td style="padding:14px 28px 8px"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #eee;border-radius:8px">' . $tr . '</table></td></tr>'
+        . '<tr><td style="padding:18px 28px 26px;font-size:13px;color:#777;line-height:1.6">The Sangam House, Devprayag, Uttarakhand<br>'
+        . 'Call / WhatsApp: <a href="tel:+919999683311" style="color:#8a6d12;text-decoration:none">' . $h(SITE_PHONE_1) . '</a> &middot; '
+        . '<a href="mailto:' . $h(SITE_EMAIL) . '" style="color:#8a6d12;text-decoration:none">' . $h(SITE_EMAIL) . '</a></td></tr>'
+        . '</table></td></tr></table></body></html>';
+};
+$plain = static function (string $head, array $rows): string {
+    $t = $head . "\n\n";
+    foreach ($rows as $k => $v) {
+        $t .= "$k: $v\n";
+    }
+    return $t;
+};
+
+$adminSubject = 'New enquiry from ' . $clean($name);
+$adminHtml = $mailHtml('New website enquiry', 'A guest just sent an enquiry from the website.', $fields);
+if (!smtp_send(NOTIFY_EMAIL, $adminSubject, $plain('New website enquiry', $fields), $email ?: null, $adminHtml)) {
+    $host = preg_replace('/^www\./', '', (string)($_SERVER['HTTP_HOST'] ?? 'localhost'));
+    @mail(NOTIFY_EMAIL, $adminSubject, $plain('New website enquiry', $fields), 'From: ' . SITE_NAME . ' <noreply@' . $host . ">\r\nContent-Type: text/plain; charset=UTF-8\r\n" . ($email !== '' ? 'Reply-To: ' . $clean($email) . "\r\n" : ''));
 }
 // Confirmation to the guest, if they gave a valid email.
 if ($email !== '' && filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    $ack = "Dear $name,\n\nThank you for your enquiry with The Sangam House, Devprayag. We have received your request and our team will contact you shortly on $phone to confirm availability and the best rate.\n\n"
-        . "Your details:\nRoom: " . ($room ?: '-') . "\nCheck-in: " . ($checkin ?: '-') . "\nCheck-out: " . ($checkout ?: '-') . "\nGuests: " . ($guests ?: '-') . "\n\n"
-        . "For anything urgent, call " . SITE_PHONE_1 . " or WhatsApp " . SITE_PHONE_2 . ".\n\nWarm regards,\nThe Sangam House\n" . SITE_EMAIL . "\n";
-    smtp_send($email, 'We received your enquiry - The Sangam House', $ack, SITE_EMAIL);
+    $intro = 'Thank you for your enquiry. We have received it and our team will contact you shortly on ' . $phone . ' to confirm availability and the best rate.';
+    smtp_send($email, 'We received your enquiry - The Sangam House',
+        "Dear $name,\n\n$intro\n\n" . $plain('Your details', $fields) . "\nThe Sangam House\n" . SITE_PHONE_1 . "\n" . SITE_EMAIL . "\n",
+        SITE_EMAIL, $mailHtml('Thank you, ' . $name, $intro, $fields));
 }
-
 json_response($ok);

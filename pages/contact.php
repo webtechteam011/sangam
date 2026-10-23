@@ -28,13 +28,13 @@
 
                 <div class="ts-contact-cards-stack">
                     <!-- Phone Card -->
-                    <a href="tel:9889882696" class="ts-contact-card-item">
+                    <a href="tel:9999683311" class="ts-contact-card-item">
                         <div class="ts-contact-icon-box">
                             <i class="fa-solid fa-phone"></i>
                         </div>
                         <div class="ts-contact-card-text">
                             <h4>Phone Number</h4>
-                            <p>+91 9889882696, +91 9999683311</p>
+                            <p>+91 9999683311</p>
                         </div>
                     </a>
 

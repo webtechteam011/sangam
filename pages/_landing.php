@@ -10,7 +10,7 @@ $related = array_filter($pages, fn($p, $k) => $p['type'] === 'landing' && $k !==
     <p><?= e($content['lead']) ?></p>
     <div class="seo-cta">
       <button type="button" class="seo-btn primary open-booking"><i class="fa-solid fa-calendar-check"></i> Enquire Now</button>
-      <a class="seo-btn ghost" href="tel:+919889882696"><i class="fa-solid fa-phone"></i> Call +91 98898 82696</a>
+      <a class="seo-btn ghost" href="tel:+919999683311"><i class="fa-solid fa-phone"></i> Call +91 99996 83311</a>
       <a class="seo-btn ghost" href="https://wa.me/<?= SITE_WHATSAPP ?>?text=<?= rawurlencode('Hello, I would like to book a stay at The Sangam House, Devprayag.') ?>" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
     </div>
   </section>
