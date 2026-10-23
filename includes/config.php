@@ -42,11 +42,11 @@ define('SMTP_USER', $env['SMTP_USER'] ?? '');
 define('SMTP_PASS', $env['SMTP_PASS'] ?? '');
 define('SMTP_FROM', $env['SMTP_FROM'] ?? '');
 define('SMTP_FROM_NAME', $env['SMTP_FROM_NAME'] ?? SITE_NAME);
-define('DB_HOST', $cfg['db_host'] ?? '127.0.0.1');
-define('DB_NAME', $cfg['db_name'] ?? '');
-define('DB_USER', $cfg['db_user'] ?? '');
-define('DB_PASS', $cfg['db_pass'] ?? '');
+define('DB_HOST', $env['DB_HOST'] ?? $cfg['db_host'] ?? '127.0.0.1');
+define('DB_NAME', $env['DB_NAME'] ?? $cfg['db_name'] ?? '');
+define('DB_USER', $env['DB_USER'] ?? $cfg['db_user'] ?? '');
+define('DB_PASS', $env['DB_PASS'] ?? $cfg['db_pass'] ?? '');
 // Canonical (production) origin used for canonical URLs, sitemap and schema.
 define('SITE_URL', rtrim($cfg['site_url'] ?? 'https://thesangamhouse.com', '/'));
-define('NOTIFY_EMAIL', $cfg['notify_email'] ?? SITE_EMAIL);
+define('NOTIFY_EMAIL', $env['NOTIFY_EMAIL'] ?? $cfg['notify_email'] ?? SITE_EMAIL);
 define('APP_DEBUG', (bool)($cfg['debug'] ?? false));
