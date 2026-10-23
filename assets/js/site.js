@@ -137,3 +137,12 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 });
+
+/* Google Ads: count every WhatsApp link click as a "WhatsApp Click" conversion.
+   Same event as the gtag_report_conversion() snippet in the header, but sent without
+   redirecting, so links that open in a new tab keep working. */
+document.addEventListener('click', function (e) {
+  var a = e.target.closest ? e.target.closest('a[href*="wa.me"], a[href*="api.whatsapp.com"]') : null;
+  if (!a || typeof gtag !== 'function') return;
+  gtag('event', 'conversion', { 'send_to': 'AW-18497672685/2PluCIuOopodEO2rsPRE', 'value': 1.0, 'currency': 'INR' });
+});
