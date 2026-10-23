@@ -94,6 +94,11 @@
                         </div>
 
                         <div class="ts-form-group">
+                            <label for="contact-email">Email (for confirmation)</label>
+                            <input type="email" id="contact-email" name="email" maxlength="160" placeholder="you@example.com" class="ts-form-input">
+                        </div>
+
+                        <div class="ts-form-group">
                             <label for="contact-room">Select Accommodation / Interest</label>
                             <select id="contact-room" name="room" class="ts-form-input">
                                 <option value="Deluxe Mountain View Room">Deluxe Mountain View Room (2+1 Guests)</option>

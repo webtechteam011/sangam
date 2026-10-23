@@ -151,6 +151,11 @@
           <input type="tel" id="phone" name="phone" maxlength="30" placeholder="Your mobile / WhatsApp number" required>
         </div>
 
+        <div class="form-group full">
+          <label for="bookEmail">EMAIL (FOR CONFIRMATION)</label>
+          <input type="email" id="bookEmail" name="email" maxlength="160" placeholder="you@example.com">
+        </div>
+
         <div class="enq-hp" aria-hidden="true"><label>Leave empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
         <div class="enq-status" role="status" aria-live="polite"></div>
         <button type="submit" class="booking-submit">SEND ENQUIRY</button>

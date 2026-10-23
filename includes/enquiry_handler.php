@@ -109,6 +109,16 @@ $headers = 'From: ' . SITE_NAME . ' <noreply@' . $host . ">\r\nContent-Type: tex
 if ($email !== '') {
     $headers .= 'Reply-To: ' . $clean($email) . "\r\n";
 }
-@mail(NOTIFY_EMAIL, 'New enquiry from ' . $clean($name), $body, $headers);
+require_once __DIR__ . '/mailer.php';
+if (!smtp_send(NOTIFY_EMAIL, 'New enquiry from ' . $clean($name), $body, $email ?: null)) {
+    @mail(NOTIFY_EMAIL, 'New enquiry from ' . $clean($name), $body, $headers);
+}
+// Confirmation to the guest, if they gave a valid email.
+if ($email !== '' && filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    $ack = "Dear $name,\n\nThank you for your enquiry with The Sangam House, Devprayag. We have received your request and our team will contact you shortly on $phone to confirm availability and the best rate.\n\n"
+        . "Your details:\nRoom: " . ($room ?: '-') . "\nCheck-in: " . ($checkin ?: '-') . "\nCheck-out: " . ($checkout ?: '-') . "\nGuests: " . ($guests ?: '-') . "\n\n"
+        . "For anything urgent, call " . SITE_PHONE_1 . " or WhatsApp " . SITE_PHONE_2 . ".\n\nWarm regards,\nThe Sangam House\n" . SITE_EMAIL . "\n";
+    smtp_send($email, 'We received your enquiry - The Sangam House', $ack, SITE_EMAIL);
+}
 
 json_response($ok);

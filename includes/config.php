@@ -24,6 +24,24 @@ const BOOKING_URL   = 'https://www.secure-booking-engine.com/accounts/N7SAVY4IvU
 $private = dirname(__DIR__, 2) . '/config.private.php';
 $cfg = is_file($private) ? require $private : [];
 
+// .env (project root, git-ignored): simple KEY=VALUE lines.
+$env = [];
+$envFile = dirname(__DIR__) . '/.env';
+if (is_file($envFile)) {
+    foreach (file($envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) as $line) {
+        if ($line[0] !== '#' && str_contains($line, '=')) {
+            [$k, $v] = explode('=', $line, 2);
+            $env[trim($k)] = trim($v, " \t\"'\r");
+        }
+    }
+}
+define('SMTP_HOST', $env['SMTP_HOST'] ?? '');
+define('SMTP_PORT', (int)($env['SMTP_PORT'] ?? 465));
+define('SMTP_SECURE', $env['SMTP_SECURE'] ?? 'ssl');
+define('SMTP_USER', $env['SMTP_USER'] ?? '');
+define('SMTP_PASS', $env['SMTP_PASS'] ?? '');
+define('SMTP_FROM', $env['SMTP_FROM'] ?? '');
+define('SMTP_FROM_NAME', $env['SMTP_FROM_NAME'] ?? SITE_NAME);
 define('DB_HOST', $cfg['db_host'] ?? '127.0.0.1');
 define('DB_NAME', $cfg['db_name'] ?? '');
 define('DB_USER', $cfg['db_user'] ?? '');

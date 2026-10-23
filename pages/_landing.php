@@ -68,6 +68,7 @@ $related = array_filter($pages, fn($p, $k) => $p['type'] === 'landing' && $k !==
           </select>
           <input type="number" name="guests" min="1" max="60" placeholder="Guests" aria-label="Number of guests">
         </div>
+        <input type="email" name="email" maxlength="160" placeholder="Email (for confirmation)" aria-label="Email">
         <textarea name="message" rows="3" maxlength="2000" placeholder="Any message (optional)"></textarea>
         <div class="enq-hp" aria-hidden="true"><label>Leave empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
         <div class="enq-status" role="status" aria-live="polite"></div>
