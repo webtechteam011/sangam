@@ -212,8 +212,10 @@ function render_head(array $page, string $route, array $faq = [], string $robots
 <meta name="format-detection" content="telephone=yes">
 <meta name="application-name" content="<?= e(SITE_NAME) ?>">
 <meta name="apple-mobile-web-app-title" content="<?= e(SITE_NAME) ?>">
-<link rel="icon" href="/img/favicon.ico" sizes="any">
-<link rel="apple-touch-icon" href="/img/favicon.jpg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/img/icon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
 <script type="application/ld+json"><?= $schema ?></script>
 <?php if ($extra): ?><script type="application/ld+json"><?= $extra ?></script>
 <?php endif; ?>
